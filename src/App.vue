@@ -7,6 +7,8 @@ const contacts = ref([])
 
 contacts.value = contactsJson.filter((contact, index) => index < 5)
 
+console.log(contacts.value)
+
 provide('contacts', contacts)
 </script>
 
@@ -21,6 +23,8 @@ provide('contacts', contacts)
       <th class="popularity">
         <h2>Popularity</h2>
       </th>
+      <th><h2>Won an Oscar</h2></th>
+      <th><h2>Won an Emmy</h2></th>
       <tr v-for="contact in contacts" :key="contact">
         <td><img :src="contact.pictureUrl" alt="artist picture"></td>
         <td>
@@ -29,6 +33,8 @@ provide('contacts', contacts)
         <td>
           <h3>{{ contact.popularity.toFixed(2) }}</h3>
         </td>
+        <td v-if="wonOscar"><img src="@/assets/trophy.svg" alt="trophy"></td>
+        <td v-if="wonEmmy"><img src="@/assets/trophy.svg" alt="trophy"></td>
       </tr>
     </table>
   </div>
@@ -51,12 +57,10 @@ h3 {
   font-weight: 400;
   font-size: 30px;
 }
-
 td {
   text-align: center;
   width: 150px;
 }
-
 img {
   width: 110px;
 }
