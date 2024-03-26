@@ -44,8 +44,8 @@ h1 {
   text-align: center;
 }
 h2 {
-  font-weight: bold;
-  font-size: 30px;
+  font-weight:bolder;
+  font-size: 40px;
 }
 h3 {
   font-weight: 400;
