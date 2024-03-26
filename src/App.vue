@@ -1,15 +1,11 @@
 <script setup>
 import contactsJson from '@/contacts.json'
-import ContactsTable from '@/components/ContactsTable.vue'
-import { ref, provide } from 'vue'
+import { ref } from 'vue'
 
 const contacts = ref([])
 
-contacts.value = contactsJson.filter((contact, index) => index < 5)
+contacts.value = contactsJson.filter((contact, index) => index < 15)
 
-console.log(contacts.value)
-
-provide('contacts', contacts)
 </script>
 
 <template>
@@ -33,8 +29,8 @@ provide('contacts', contacts)
         <td>
           <h3>{{ contact.popularity.toFixed(2) }}</h3>
         </td>
-        <td v-if="wonOscar"><img src="@/assets/trophy.svg" alt="trophy"></td>
-        <td v-if="wonEmmy"><img src="@/assets/trophy.svg" alt="trophy"></td>
+        <td><img v-if="contact.wonOscar" src="@/assets/trophy.svg" alt="trophy"></td>
+        <td><img v-if="contact.wonEmmy" src="@/assets/trophy.svg" alt="trophy"></td>
       </tr>
     </table>
   </div>
