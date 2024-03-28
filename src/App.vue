@@ -1,16 +1,34 @@
 <script setup>
 import contactsJson from '@/contacts.json'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { randomNumberFromAtoB } from '@/utilities.js'
+
+const INITIAL_NUMBER_CONTACTS = 5
 
 const contacts = ref([])
 
-contacts.value = contactsJson.filter((contact, index) => index < 15)
+const contactsIndexes = ref([])
 
+contacts.value = contactsJson.filter((contact, index) => index < INITIAL_NUMBER_CONTACTS)
+
+//this will give the index of the contact to add
+const randomIndexOfRemaniningContacts = computed(() => {
+  const max = contactsJson.length
+  const min = contactsIndexes.value.length
+  let index = 0
+  do {
+    index = randomNumberFromAtoB(max, min)
+  } while (contactsIndexes.value.includes(index))
+  contactsIndexes.value.push(index)
+  return index
+})
+const addRandom = () => contacts.value.unshift(contactsJson[randomIndexOfRemaniningContacts.value])
 </script>
 
 <template>
   <div class="container">
     <h1>IronContacts</h1>
+    <button @click="addRandom">Add Random</button>
     <table>
       <th class="picture"><h2>Picture</h2></th>
       <th class="name">
@@ -59,5 +77,11 @@ td {
 }
 img {
   width: 110px;
+}
+button {
+  width: 200px;
+  height: 50px;
+  align-self: center;
+  background-color: aqua;
 }
 </style>
