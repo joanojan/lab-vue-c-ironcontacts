@@ -11,7 +11,8 @@ const contactsIndexes = ref([])
 
 contacts.value = contactsJson.filter((contact, index) => index < INITIAL_NUMBER_CONTACTS)
 
-//this will give the index of the contact to add
+//this will give the index of the contact to add and push it to the 
+//contactsIndexes array to have it registered ...
 const randomIndexOfRemaniningContacts = computed(() => {
   const max = contactsJson.length
   const min = contactsIndexes.value.length
