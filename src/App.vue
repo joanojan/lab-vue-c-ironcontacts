@@ -15,7 +15,7 @@ contacts.value = contactsJson.filter((contact, index) => index < INITIAL_NUMBER_
 //contactsIndexes array to have it registered ...
 const randomIndexOfRemaniningContacts = computed(() => {
   const max = contactsJson.length
-  const min = contactsIndexes.value.length
+  const min = contactsIndexes.value.length + 5
   let index = 0
   do {
     index = randomNumberFromAtoB(max, min)
@@ -23,23 +23,40 @@ const randomIndexOfRemaniningContacts = computed(() => {
   contactsIndexes.value.push(index)
   return index
 })
+const sortByName = () => {
+  contacts.value.sort((a, b) => a.name.localeCompare(b.name))
+}
+
+const sortByPopularity = () => {
+  contacts.value.sort((a, b) => b.popularity - a.popularity)
+}
 const addRandom = () => contacts.value.unshift(contactsJson[randomIndexOfRemaniningContacts.value])
 </script>
 
 <template>
   <div class="container">
     <h1>IronContacts</h1>
-    <button @click="addRandom">Add Random</button>
+    <div class="buttons">
+      <button @click="addRandom">Add Random Contact</button>
+      <button @click="sortByName">Sort by name</button>
+      <button @click="sortByPopularity">Sort by popularity</button>
+    </div>
     <table>
-      <th class="picture"><h2>Picture</h2></th>
+      <th class="picture">
+        <h2>Picture</h2>
+      </th>
       <th class="name">
         <h2>Name</h2>
       </th>
       <th class="popularity">
         <h2>Popularity</h2>
       </th>
-      <th><h2>Won an Oscar</h2></th>
-      <th><h2>Won an Emmy</h2></th>
+      <th>
+        <h2>Won an Oscar</h2>
+      </th>
+      <th>
+        <h2>Won an Emmy</h2>
+      </th>
       <tr v-for="contact in contacts" :key="contact">
         <td><img :src="contact.pictureUrl" alt="artist picture"></td>
         <td>
@@ -60,29 +77,38 @@ const addRandom = () => contacts.value.unshift(contactsJson[randomIndexOfRemanin
   display: flex;
   flex-direction: column;
 }
+
 h1 {
   font-size: 80px;
   text-align: center;
 }
+
 h2 {
-  font-weight:bolder;
+  font-weight: bolder;
   font-size: 40px;
 }
+
 h3 {
   font-weight: 400;
   font-size: 30px;
 }
+
 td {
   text-align: center;
   width: 150px;
 }
+
 img {
   width: 110px;
 }
+.buttons {
+  display: flex;
+  align-self: center;
+}
 button {
+  margin: 3px;
   width: 200px;
   height: 50px;
-  align-self: center;
   background-color: aqua;
 }
 </style>
