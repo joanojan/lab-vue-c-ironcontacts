@@ -25,12 +25,15 @@ const randomIndexOfRemaniningContacts = computed(() => {
 })
 const sortByName = () => {
   contacts.value.sort((a, b) => a.name.localeCompare(b.name))
+  contacts.value = [...contacts.value]
 }
 
 const sortByPopularity = () => {
   contacts.value.sort((a, b) => b.popularity - a.popularity)
+  contacts.value = [...contacts.value]
 }
 const addRandom = () => contacts.value.unshift(contactsJson[randomIndexOfRemaniningContacts.value])
+console.log(contacts.value)
 </script>
 
 <template>
