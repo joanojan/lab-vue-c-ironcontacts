@@ -33,7 +33,11 @@ const sortByPopularity = () => {
   contacts.value = [...contacts.value]
 }
 const addRandom = () => contacts.value.unshift(contactsJson[randomIndexOfRemaniningContacts.value])
-console.log(contacts.value)
+
+const deleteContact = (index) => {
+  contacts.value.splice(index, 1)
+  contacts.value = [...contacts.value]
+}
 </script>
 
 <template>
@@ -54,16 +58,19 @@ console.log(contacts.value)
       <th class="popularity">
         <h2>Popularity</h2>
       </th>
-      <th>
+      <th> 
         <h2>Won an Oscar</h2>
       </th>
       <th>
         <h2>Won an Emmy</h2>
       </th>
-      <tr v-for="contact in contacts" :key="contact">
+      <tr v-for="(contact, index) in contacts" :key="contact">
         <td><img :src="contact.pictureUrl" alt="artist picture"></td>
         <td>
-          <h3>{{ contact.name }}</h3>
+          <h3 class="deleteButtonHeader">
+            <button class="deleteContact" @click="deleteContact(index)">Delete Contact</button>
+            {{ contact.name }}
+          </h3>
         </td>
         <td>
           <h3>{{ contact.popularity.toFixed(2) }}</h3>
@@ -95,6 +102,11 @@ h3 {
   font-weight: 400;
   font-size: 30px;
 }
+.deleteButtonHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 td {
   text-align: center;
@@ -113,5 +125,9 @@ button {
   width: 200px;
   height: 50px;
   background-color: aqua;
+}
+.deleteContact {
+  background-color: grey;
+  align-self: center;
 }
 </style>
